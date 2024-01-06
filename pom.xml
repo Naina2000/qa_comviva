@@ -5,10 +5,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.example</groupId>
-    <artifactId>calcularor_test_project</artifactId>
+    <artifactId>validate</artifactId>
     <version>1.0</version>
 
-    <name>calcularor_test_project</name>
+    <name>validate</name>
     <!-- FIXME change it to the project's website -->
     <url>http://www.example.com</url>
 
@@ -20,18 +20,29 @@
 
 
     <dependencies>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter</artifactId>
-            <version>5.10.1</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.platform</groupId>
-            <artifactId>junit-platform-suite-engine</artifactId>
-            <version>1.10.1</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+    <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter</artifactId>
+        <version>5.10.1</version>
+        <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.junit.platform</groupId>
+        <artifactId>junit-platform-suite-engine</artifactId>
+        <version>1.10.1</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+    <dependency>
+        <groupId>org.seleniumhq.selenium</groupId>
+        <artifactId>selenium-java</artifactId>
+        <version>4.11.0</version>
+    </dependency>
+    <dependency>
+        <groupId>io.github.bonigarcia</groupId>
+        <artifactId>webdrivermanager</artifactId>
+        <!--       <version>5.6.2</version>-->
+        <version>5.2.0</version>
+    </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>

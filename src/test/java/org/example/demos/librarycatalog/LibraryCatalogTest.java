@@ -6,57 +6,69 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.List;
+
 public class LibraryCatalogTest {
 
-    private LibraryCatalog library;
+    private LibraryCatalog libraryCatalog;
+    private Book book1;
+    private Book book2;
 
     @BeforeEach
-    void setUp() {
-        library = new LibraryCatalog();
-        // Adding some initial books for testing
-        library.addBook(new Book("Book1", "Author1"));
-        library.addBook(new Book("Book2", "Author2"));
+    public void setUp() {
+        libraryCatalog = new LibraryCatalog();
+        book1 = new Book("The Great Gatsby", "F. Scott Fitzgerald");
+        book2 = new Book("To Kill a Mockingbird", "Harper Lee");
+        libraryCatalog.addBook(book1);
+        libraryCatalog.addBook(book2);
     }
 
     @Test
-    void testAddBook() {
-        // Test case 1: Adding a new book
-        Book newBook = new Book("NewBook", "NewAuthor");
-        library.addBook(newBook);
+    public void testAddBook() {
+        List<Book> books = libraryCatalog.getBooks();
 
-        // Use assertTrue to check if the book is added
-        assertTrue(library.getBooks().contains(newBook));
+        assertEquals(2, books.size());
+        assertTrue(books.contains(book1));
+        assertTrue(books.contains(book2));
     }
 
     @Test
-    void testBorrowBook() {
-        // Test case 1: Borrow an available book
-        library.borrowBook("Book1");
+    public void testBorrowBook() {
+        libraryCatalog.borrowBook("The Great Gatsby");
 
-        // Use assertFalse to check if the book is no longer available
-        assertFalse(library.getBooks().stream().filter(book -> book.getTitle().equals("Book1")).findFirst().get().isAvailable());
-
-        // Test case 2: Borrow a non-existent book
-        library.borrowBook("NonExistentBook");
-
-        // Use assertFalse to check that nothing changes (no book borrowed)
-        assertFalse(library.getBooks().stream().anyMatch(book -> book.getTitle().equals("NonExistentBook")));
+        assertFalse(book1.isAvailable());
+        assertTrue(book2.isAvailable());
     }
 
     @Test
-    void testReturnBook() {
-        // Test case 1: Return a borrowed book
-        library.borrowBook("Book2");
-        library.returnBook("Book2");
+    public void testReturnBook() {
+        book1.setAvailable(false);
+        book2.setAvailable(false);
 
-        // Use assertTrue to check if the book is now available
-        assertTrue(library.getBooks().stream().filter(book -> book.getTitle().equals("Book2")).findFirst().get().isAvailable());
+        libraryCatalog.returnBook("The Great Gatsby");
 
-        // Test case 2: Return a non-borrowed book
-        library.returnBook("NonBorrowedBook");
+        assertTrue(book1.isAvailable());
+        assertFalse(book2.isAvailable());
+    }
 
-        // Use assertTrue to check that nothing changes (no book returned)
-        assertTrue(library.getBooks().stream().noneMatch(book -> book.getTitle().equals("NonBorrowedBook")));
+    @Test
+    public void testBorrowNonExistentBook() {
+        // Attempt to borrow a book that doesn't exist in the catalog
+        libraryCatalog.borrowBook("NonExistentTitle");
+
+        // Ensure that the catalog state remains unchanged
+        assertTrue(book1.isAvailable());
+        assertTrue(book2.isAvailable());
+    }
+    @Test
+    public void testReturnNonExistentBook() {
+        // Attempt to return a book that doesn't exist in the catalog
+        libraryCatalog.returnBook("NonExistentTitle");
+
+        // Ensure that the catalog state remains unchanged
+        assertTrue(book1.isAvailable());
+        assertTrue(book2.isAvailable());
     }
 }
+
 

@@ -4,7 +4,7 @@ import org.example.emailvalidator.EmailValidator;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class EmailValidatorTest {
+class EmailValidatorTest {
 
     @Test
     void testIsValidEmail() {
@@ -16,10 +16,10 @@ public class EmailValidatorTest {
         // Test case 2: Invalid email
         assertFalse(validator.isValidEmail("invalid_email"));
 
-        // Use assertNotEquals for negative testing
+        // Negative testing using assertNotEquals
         assertNotEquals(true, validator.isValidEmail("invalid_email"));
 
-        // Use assertAll for multiple assertions
+        // Multiple assertions using assertAll
         assertAll(
                 () -> assertTrue(validator.isValidEmail("user@example.com"), "Valid email failed"),
                 () -> assertFalse(validator.isValidEmail("invalid_email"), "Invalid email passed"),
@@ -37,12 +37,16 @@ public class EmailValidatorTest {
         // Test case 2: Non-corporate email
         assertFalse(validator.isCorporateEmail("user@example.com"));
 
-        // Use assertArrayEquals for array comparisons
-        assertArrayEquals(new boolean[]{true, false, true, false},
-                new boolean[]{validator.isCorporateEmail("employee@company.com"),
+        // Array comparison using assertArrayEquals
+        assertArrayEquals(
+                new boolean[]{true, false, true, false},
+                new boolean[]{
+                        validator.isCorporateEmail("employee@company.com"),
                         validator.isCorporateEmail("user@example.com"),
                         validator.isCorporateEmail("admin@sub.company.com"),
-                        validator.isCorporateEmail("user@corporate.com")},
-                "Array comparison failed");
+                        validator.isCorporateEmail("user@corporate.com")
+                },
+                "Array comparison failed"
+        );
     }
 }
